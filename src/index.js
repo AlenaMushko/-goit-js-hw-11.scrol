@@ -2,7 +2,7 @@
 // Форма спочатку міститья в HTML документі.Користувач буде вводити рядок для пошуку у 
 // текстове поле, а по сабміту форми необхідно виконувати HTTP - запит.
 
-<form class="search-form" id="search-form">
+{/* <form class="search-form" id="search-form">
   <input
     type="text"
     name="searchQuery"
@@ -10,7 +10,7 @@
     placeholder="Search images..."
   />
   <button type="submit">Search</button>
-</form>
+</form> */}
 
 // HTTP-запити
 // Для бекенду використовуй публічний API сервісу Pixabay. Зареєструйся, отримай свій
