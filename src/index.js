@@ -1,7 +1,30 @@
-// import SimpleLightbox from "simplelightbox";
-// import "simplelightbox/dist/simple-lightbox.min.css";
+import SimpleLightbox from "simplelightbox";
+import "simplelightbox/dist/simple-lightbox.min.css";
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import { cardTemplates, largeImageTemplates } from "./templates";
+import { fetchCard } from "./fetch";
 
-// import { Notify } from 'notiflix/build/notiflix-notify-aio';
+const refs = {
+  formEl : document.querySelector('.search-form'),
+  inputEl: document.querySelector('.search-form input'),
+  btnEl: document.querySelector('.search-form button'),
+  galleryEl: document.querySelector('.gallery'),
+}
+
+refs.formEl.addEventListener('submit', onFormElSubmit);
+refs.inputEl.addEventListener('input', onInputElInput);
+
+function onFormElSubmit(e) {
+  e.preventDefault();
+  onInputElInput();
+  
+};
+
+function onInputElInput(e) {
+let inputValue = e.currentTarget.value;
+ console.log(inputValue);
+}
+
 
 
 //   // підключаємо бібліотеку SimpleLightbox
