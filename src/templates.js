@@ -1,7 +1,9 @@
-export function cardTemplates({webformatURL, tags, likes, views, comments, downloads,}) {
+export function cardTemplates({webformatURL, largeImageURL, tags, likes, views, comments, downloads,}) {
   return `
    <div class="photo-card">
-  <img src="${webformatURL}" alt="${tags}" loading="lazy" />
+   <a href="${largeImageURL}">
+   <img src="${webformatURL}" alt="${tags}" loading="lazy" />
+   </a>
   <div class="info">
     <p class="info-item">
       <b>Likes<span>${likes}</span></b>
@@ -20,14 +22,3 @@ export function cardTemplates({webformatURL, tags, likes, views, comments, downl
   `;
 }
 
-// export function largeImageTemplates() {
-//   return `
-//  < div class="photo-large" >
-//     <img src="${largeImageURL}" alt="${tags}" loading="lazy" />
-//    </> 
-//   `;
-// }
-// <div class="gallery">
-//     <a href="images/image1.jpg"><img src="images/thumbs/thumb1.jpg" alt="" title=""/></a>
-//     <a href="images/image2.jpg"><img src="images/thumbs/thumb2.jpg" alt="" title="Beautiful Image"/></a>
-// </div>
