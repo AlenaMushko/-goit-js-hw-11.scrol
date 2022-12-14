@@ -1,8 +1,8 @@
 export default function cardTemplates({webformatURL, largeImageURL, tags, likes, views, comments, downloads}) {
   return `
    <div class="photo-card">
-   <a href="${largeImageURL}">
-   <img src="${webformatURL}" alt="${tags}"  />
+   <a class="gallery__item" href="${largeImageURL}">
+   <img class="gallery__image" src="${webformatURL}" alt="${tags}"  loading="lazy"/>
    </a>
   <div class="info">
     <p class="info-item">
