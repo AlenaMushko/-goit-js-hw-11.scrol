@@ -56,11 +56,14 @@ function onBtnLoadMoreElClick(e){
 }
 
 
- function showCreateCard(value, page) {
-   cardFetch(value, page)
-     .then(cardCreate)
-     .then(pageNumber += 1)
-  .catch(error => console.log(error));
+function showCreateCard(value, page) {
+  cardFetch
+    .then(cardCreate)
+    .then(pageNumber += 1)
+    .catch(error => {
+      console.log(error);
+      return error;
+});
 console.log(pageNumber);
 }
 
@@ -69,7 +72,7 @@ function cardCreate(hits) {
   console.log(imgs);
   const markup = imgs.map(img =>  cardTemplates(img)).join('');
   refs.galleryEl.insertAdjacentHTML('beforeend', markup);
-  console.log(markup);
+
 }
 // Notify.failure("Sorry, there are no images matching your search query. Please try again.");
 // Notify.success(`Hooray! We found ${totalHits images}.`);
