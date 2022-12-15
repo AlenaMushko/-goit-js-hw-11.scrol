@@ -17,7 +17,8 @@ let inputValue = '';
 let totalHits = 0;
 
 refs.formEl.addEventListener('submit', onFormElSubmit);
-refs.btnLoadMoreEl.addEventListener('click', onBtnLoadMoreElClick);
+// refs.btnLoadMoreEl.addEventListener('click', onBtnLoadMoreElClick);
+window.addEventListener('scroll', onWindowScrol);
 
 function onFormElSubmit(e) {
   e.preventDefault();
@@ -42,25 +43,38 @@ function onFormElSubmit(e) {
     if (Number(totalHits) >= 1) {
       Notify.success(`Hooray! We found ${totalHits} images.`);
       refs.btnLoadMoreEl.classList.remove('is-hidden');
+      loadingLazy();
     }; })
     .then((pageNumber += 1))
     .catch(error => console.log(error));
-
-    
-
-    
-    
 }
 
-function onBtnLoadMoreElClick(e) {
-  cardFetch(inputValue, pageNumber)
-    .then(results => {cardCreate(results);  if (Number(totalHits) <= 1) {
+// function onBtnLoadMoreElClick(e) {
+//   cardFetch(inputValue, pageNumber)
+//     .then(results => {
+//       cardCreate(results);  
+//       if (Number(totalHits) <= 1) {
+//       Notify.info(`We're sorry, but you've reached the end of search results.`);
+//       refs.btnLoadMoreEl.classList.add('is-hidden');
+//     };})
+//     .then((pageNumber += 1))
+//     .catch(error => console.log(error)); 
+// };
+
+function onWindowScrol() {
+  const documentRect = document.documentElement.getBoundingClientRect();
+  if ( documentRect.bottom < document.documentElement.clientHeight +150){
+    cardFetch(inputValue, pageNumber)
+    .then(results => {
+      cardCreate(results);  
+      if (Number(totalHits) <= 1) {
       Notify.info(`We're sorry, but you've reached the end of search results.`);
       refs.btnLoadMoreEl.classList.add('is-hidden');
     };})
     .then((pageNumber += 1))
     .catch(error => console.log(error)); 
-};
+  };
+}
 
 function cardCreate(hits) {
   let imgs = Object.values(hits)[2];
@@ -75,3 +89,15 @@ function cardCreate(hits) {
 
   lightbox.refresh(); 
 };
+
+function loadingLazy(){
+ const { height: cardHeight } = document
+  .querySelector(".gallery")
+  .firstElementChild.getBoundingClientRect();
+  // Метод getBoundingClientRect()повертає розмір елемента та його положення відносно вікна перегляду
+window.scrollBy({
+  top: cardHeight * -1,
+  behavior: "smooth",
+  // прокручування анімується плавно 
+}); 
+}
