@@ -6,16 +6,16 @@ export default function cardTemplates({webformatURL, largeImageURL, tags, likes,
    </a>
   <div class="info">
     <p class="info-item">
-      <b>Likes<span>${likes}</span></b>
+      <b>Likes</b><span>${likes}</span>
     </p>
     <p class="info-item">
-      <b>Views<span>${views}</span></b>
+      <b>Views</b><span>${views}</span>
     </p>
     <p class="info-item">
-      <b>Comments<span>${comments}</span></b>
+      <b>Comments</b><span>${comments}</span>
     </p>
     <p class="info-item">
-      <b>Downloads<span>${downloads}</span></b>
+      <b>Downloads</b><span>${downloads}</span>
     </p>
   </div>
 </div>
