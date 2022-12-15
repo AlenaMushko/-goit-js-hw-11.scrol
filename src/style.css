@@ -3,6 +3,35 @@
   --animation-duration: 250ms;
 }
 
+body{
+  font-family: "Helvetica", "Arial", "Tahoma", "Geneva", sans-serif;
+  font-size: 14px;
+
+}
+
+.search-form{
+  background-color: rgb(48, 169, 225);
+position: fixed;
+top: 0;
+left: 0;
+z-index: 1;
+width: 100vw;
+}
+
+.search-form input{
+  padding: 5px;
+  border-radius: 8px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+
+
+}
+
+.photo-card{
+  
+}
+
 .gallery {
   display: grid;
   max-width: 1140px;
