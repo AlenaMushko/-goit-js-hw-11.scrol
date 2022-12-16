@@ -16,6 +16,15 @@ let pageNumber = 1;
 let inputValue = '';
 let totalHits = 0;
 
+refs.formEl.addEventListener('keydown', (e)=>{
+  inputValue = e.currentTarget.elements.searchQuery.value;
+  console.log(inputValue.trim());
+  console.log(e.code);
+  console.log(e.code === "Space");
+  
+
+
+})
 refs.formEl.addEventListener('submit', onFormElSubmit);
 refs.btnLoadMoreEl.addEventListener('click', onBtnLoadMoreElClick);
 // window.addEventListener('scroll', onWindowScrol);
