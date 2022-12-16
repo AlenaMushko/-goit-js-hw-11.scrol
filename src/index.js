@@ -17,8 +17,8 @@ let inputValue = '';
 let totalHits = 0;
 
 refs.formEl.addEventListener('submit', onFormElSubmit);
-// refs.btnLoadMoreEl.addEventListener('click', onBtnLoadMoreElClick);
-window.addEventListener('scroll', onWindowScrol);
+refs.btnLoadMoreEl.addEventListener('click', onBtnLoadMoreElClick);
+// window.addEventListener('scroll', onWindowScrol);
 
 function onFormElSubmit(e) {
   e.preventDefault();
@@ -49,22 +49,8 @@ function onFormElSubmit(e) {
     .catch(error => console.log(error));
 }
 
-// function onBtnLoadMoreElClick(e) {
-//   cardFetch(inputValue, pageNumber)
-//     .then(results => {
-//       cardCreate(results);  
-//       if (Number(totalHits) <= 1) {
-//       Notify.info(`We're sorry, but you've reached the end of search results.`);
-//       refs.btnLoadMoreEl.classList.add('is-hidden');
-//     };})
-//     .then((pageNumber += 1))
-//     .catch(error => console.log(error)); 
-// };
-
-function onWindowScrol() {
-  const documentRect = document.documentElement.getBoundingClientRect();
-  if ( documentRect.bottom < document.documentElement.clientHeight +150){
-    cardFetch(inputValue, pageNumber)
+function onBtnLoadMoreElClick(e) {
+  cardFetch(inputValue, pageNumber)
     .then(results => {
       cardCreate(results);  
       if (Number(totalHits) <= 1) {
@@ -73,8 +59,22 @@ function onWindowScrol() {
     };})
     .then((pageNumber += 1))
     .catch(error => console.log(error)); 
-  };
-}
+};
+
+// function onWindowScrol() {
+//   const documentRect = document.documentElement.getBoundingClientRect();
+//   if ( documentRect.bottom < document.documentElement.clientHeight +150){
+//     cardFetch(inputValue, pageNumber)
+//     .then(results => {
+//       cardCreate(results);  
+//       if (Number(totalHits) <= 1) {
+//       Notify.info(`We're sorry, but you've reached the end of search results.`);
+//       refs.btnLoadMoreEl.classList.add('is-hidden');
+//     };})
+//     .then((pageNumber += 1))
+//     .catch(error => console.log(error)); 
+//   };
+// }
 
 function cardCreate(hits) {
   let imgs = Object.values(hits)[2];
