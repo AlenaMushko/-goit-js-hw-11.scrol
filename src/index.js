@@ -2,8 +2,8 @@ import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import cardTemplates from './templates';
-import cardFetch from './fetch';
-// import { cardFetchAxios } from "./fetch";
+// import cardFetch from './fetch';
+import cardFetchAxios from "./fetch";
 
 const refs = {
   formEl: document.querySelector('.search-form'),
@@ -15,19 +15,14 @@ const refs = {
 let pageNumber = 1;
 let inputValue = '';
 let totalHits = 0;
+let inputSpace = '';
 
-refs.formEl.addEventListener('keydown', (e)=>{
-  inputValue = e.currentTarget.elements.searchQuery.value;
-  console.log(inputValue.trim());
-  console.log(e.code);
-  console.log(e.code === "Space");
-  
-
-
-})
 refs.formEl.addEventListener('submit', onFormElSubmit);
-refs.btnLoadMoreEl.addEventListener('click', onBtnLoadMoreElClick);
-// window.addEventListener('scroll', onWindowScrol);
+// refs.btnLoadMoreEl.addEventListener('click', onBtnLoadMoreElClick);
+// // window.addEventListener('scroll', onWindowScrol);
+refs.formEl.addEventListener('keydown', (e) => {
+  inputSpace = e.code;
+});
 
 function onFormElSubmit(e) {
   e.preventDefault();
@@ -36,12 +31,13 @@ function onFormElSubmit(e) {
   pageNumber = 1;
   refs.galleryEl.innerHTML = '';
 
-  if (inputValue === '') {
+  if (inputValue === '' || inputSpace === "Space") {
     return;
   };
 
-  cardFetch(inputValue, pageNumber)
+   cardFetchAxios(inputValue, pageNumber)
     .then(results => {
+      console.log(results);
       cardCreate(results);
     if (Number(totalHits) === 0) {
       Notify.failure(
@@ -59,7 +55,7 @@ function onFormElSubmit(e) {
 }
 
 function onBtnLoadMoreElClick(e) {
-  cardFetch(inputValue, pageNumber)
+  cardFetchAxios(inputValue, pageNumber)
     .then(results => {
       cardCreate(results);  
       if (Number(totalHits) <= 1) {
@@ -73,7 +69,7 @@ function onBtnLoadMoreElClick(e) {
 // function onWindowScrol() {
 //   const documentRect = document.documentElement.getBoundingClientRect();
 //   if ( documentRect.bottom < document.documentElement.clientHeight +150){
-//     cardFetch(inputValue, pageNumber)
+//     cardFetchAxios(inputValue, pageNumber)
 //     .then(results => {
 //       cardCreate(results);  
 //       if (Number(totalHits) <= 1) {
@@ -85,11 +81,10 @@ function onBtnLoadMoreElClick(e) {
 //   };
 // }
 
-function cardCreate(hits) {
-  let imgs = Object.values(hits)[2];
+function cardCreate(imgs) {
   const markup = imgs.map(img => cardTemplates(img)).join('');
   refs.galleryEl.insertAdjacentHTML('beforeend', markup);
-  totalHits = markup.length;
+  
   // підключаємо бібліотеку SimpleLightbox
   const lightbox = new SimpleLightbox('.photo-card a', {
     captions: true,
