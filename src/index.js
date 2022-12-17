@@ -66,10 +66,12 @@ async function onFormElSubmit(e) {
 
 async function onBtnLoadMoreElClick(e) {
  const results = await cardFetchAxios(inputValue, pageNumber);
-if (results.totalHits < 40) {
+  if (results.totalHits < 40) {
     refs.btnLoadMoreEl.classList.add('is-hidden');
+    refs.infoTextEl.classList.remove('is-hidden');
   } else {
     refs.btnLoadMoreEl.classList.remove('is-hidden');
+     refs.infoTextEl.classList.add('is-hidden');
   };
   try {
     cardCreate(results.hits);
