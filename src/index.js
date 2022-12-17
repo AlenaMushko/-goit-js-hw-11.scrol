@@ -18,34 +18,37 @@ let totalHits = 0;
 let inputSpace = '';
 
 refs.formEl.addEventListener('submit', onFormElSubmit);
-// refs.btnLoadMoreEl.addEventListener('click', onBtnLoadMoreElClick);
+refs.btnLoadMoreEl.addEventListener('click', onBtnLoadMoreElClick);
 // // window.addEventListener('scroll', onWindowScrol);
 refs.formEl.addEventListener('keydown', (e) => {
   inputSpace = e.code;
+  // inputValue =  e.currentTarget.searchQuery.value;
 });
 
 function onFormElSubmit(e) {
   e.preventDefault();
-  inputValue = e.currentTarget.elements.searchQuery.value;
+   inputValue = e.currentTarget.searchQuery.value;
   // У разі пошуку за новим ключовим словом, значення page повернути до початкового
   pageNumber = 1;
   refs.galleryEl.innerHTML = '';
-
+ 
+  console.log(inputValue);
+  
   if (inputValue === '' || inputSpace === "Space") {
     return;
   };
 
    cardFetchAxios(inputValue, pageNumber)
     .then(results => {
-      console.log(results);
-      cardCreate(results);
-    if (Number(totalHits) === 0) {
+      cardCreate(results.hits);
+      totalHits = results.totalHits;
+    if (results.hits.length === 0) {
       Notify.failure(
         'Sorry, there are no images matching your search query. Please try again.'
       );
       return;
     };
-    if (Number(totalHits) >= 1) {
+    if (results.hits.length >= 1) {
       Notify.success(`Hooray! We found ${totalHits} images.`);
       refs.btnLoadMoreEl.classList.remove('is-hidden');
       loadingLazy();
@@ -57,7 +60,7 @@ function onFormElSubmit(e) {
 function onBtnLoadMoreElClick(e) {
   cardFetchAxios(inputValue, pageNumber)
     .then(results => {
-      cardCreate(results);  
+      cardCreate(results.hits);  
       if (Number(totalHits) <= 1) {
       Notify.info(`We're sorry, but you've reached the end of search results.`);
       refs.btnLoadMoreEl.classList.add('is-hidden');
