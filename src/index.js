@@ -65,17 +65,20 @@ async function onFormElSubmit(e) {
 }
 
 async function onBtnLoadMoreElClick(e) {
- const results = await cardFetchAxios(inputValue, pageNumber);
-  if (results.totalHits < 40) {
+  const results = await cardFetchAxios(inputValue, pageNumber);
+
+
+  try {
+    cardCreate(results.hits);
+    pageNumber += 1;
+    let remainder = results.totalHits - 40 * (pageNumber - 2)
+    if (remainder < 40) {
     refs.btnLoadMoreEl.classList.add('is-hidden');
     refs.infoTextEl.classList.remove('is-hidden');
   } else {
     refs.btnLoadMoreEl.classList.remove('is-hidden');
      refs.infoTextEl.classList.add('is-hidden');
   };
-  try {
-    cardCreate(results.hits);
-    pageNumber += 1;
   } catch (error) {
     console.log(error);
   }
