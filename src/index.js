@@ -18,7 +18,7 @@ let totalHits = 0;
 let inputSpace = '';
 
 refs.formEl.addEventListener('submit', onFormElSubmit);
-// refs.btnLoadMoreEl.addEventListener('click', onBtnLoadMoreElClick);
+refs.btnLoadMoreEl.addEventListener('click', onBtnLoadMoreElClick);
 
 refs.formEl.addEventListener('keydown', e => {
   inputSpace = e.code;
