@@ -64,38 +64,38 @@ async function onFormElSubmit(e) {
   }
 }
 
-// async function onBtnLoadMoreElClick(e) {
-//  const results = await cardFetchAxios(inputValue, pageNumber);
-// if (results.totalHits < 40) {
-//     refs.btnLoadMoreEl.classList.add('is-hidden');
-//   } else {
-//     refs.btnLoadMoreEl.classList.remove('is-hidden');
-//   };
-//   try {
-//     cardCreate(results.hits);
-//     pageNumber += 1;
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }
-
-window.addEventListener('scroll', onWindowScrol);
-
-async function onWindowScrol() {
-  const documentRect = document.documentElement.getBoundingClientRect();
-  if ( documentRect.bottom < document.documentElement.clientHeight + 300){
-   
-     refs.btnLoadMoreEl.classList.add('is-hidden');
-    const results = await cardFetchAxios(inputValue, pageNumber);
+async function onBtnLoadMoreElClick(e) {
+ const results = await cardFetchAxios(inputValue, pageNumber);
+if (results.totalHits < 40) {
+    refs.btnLoadMoreEl.classList.add('is-hidden');
+  } else {
+    refs.btnLoadMoreEl.classList.remove('is-hidden');
+  };
+  try {
     cardCreate(results.hits);
     pageNumber += 1;
-if (results.totalHits < 40) {
-    refs.infoTextEl.classList.remove('is-hidden');
-  } else {
-     refs.infoTextEl.classList.add('is-hidden');
-  };
-  };
+  } catch (error) {
+    console.log(error);
+  }
 }
+
+// window.addEventListener('scroll', onWindowScrol);
+
+// async function onWindowScrol() {
+//   const documentRect = document.documentElement.getBoundingClientRect();
+//   if ( documentRect.bottom < document.documentElement.clientHeight + 300){
+   
+//      refs.btnLoadMoreEl.classList.add('is-hidden');
+//     const results = await cardFetchAxios(inputValue, pageNumber);
+//     cardCreate(results.hits);
+//     pageNumber += 1;
+// if (results.totalHits < 40) {
+//     refs.infoTextEl.classList.remove('is-hidden');
+//   } else {
+//      refs.infoTextEl.classList.add('is-hidden');
+//   };
+//   };
+// }
 
 function cardCreate(imgs) {
   const markup = imgs.map(img => cardTemplates(img)).join('');
