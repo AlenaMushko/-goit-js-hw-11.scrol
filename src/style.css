@@ -128,3 +128,8 @@ body {
 .is-hidden {
   display: none;
 }
+
+.info-text{
+  color: rgb(41, 174, 11);
+  text-align: center;
+}
