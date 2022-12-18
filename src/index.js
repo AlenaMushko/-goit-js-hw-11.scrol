@@ -117,19 +117,13 @@ easyScroll({
 
 const options = {
   rootMargin: '100px',
-  threshold: 0.5,
+  threshold: 1,
 };
 
 function onWindowScrole(entries) {
   entries.forEach(async entry => {
     // анимируем, если элемент целиком попадает в отслеживаемую область
-    if (
-      entry.isIntersecting &&
-      entry.intersectionRatio == 1
-      // entry.isIntersecting &&
-      // pixabayAPIService.query !== '' &&
-      // pixabayAPIService.lengthArrayPhotos >= pixabayAPIService.perPage
-    ) {
+    if (entry.isIntersecting && entry.intersectionRatio == 1) {
       refs.btnLoadMoreEl.classList.add('is-hidden');
       const results = await cardFetchAxios(inputValue, pageNumber);
       try {
