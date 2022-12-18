@@ -1,6 +1,11 @@
 :root {
   --timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   --animation-duration: 250ms;
+  --fon-background-color: rgb(48, 169, 225);
+  --button-background-color: rgb(222, 215, 10);
+  --main-icon-fill:  tomato;
+  --hover-icon-fill:rgb(41, 174, 11);
+
 }
 
 body {
@@ -10,7 +15,7 @@ body {
 
 .search-form {
   margin: 0 auto;
-  background-color: rgb(48, 169, 225);
+  background-color: var(--fon-background-color);
   padding: 15px;
   position: fixed;
   top: 0;
@@ -23,7 +28,7 @@ body {
   width: 50%;
   height: 42px;
   padding-left: 10px;
-  border: 2px solid rgb(222, 215, 10);
+  border: 2px solid var(--button-background-color);
   border-radius: 8px;
   display: block;
   margin-left: auto;
@@ -37,7 +42,7 @@ body {
   width: 60px;
   height: 47px;
   border: none;
-  background: rgb(222, 215, 10);
+  background: var(--button-background-color);
   border-radius: 0 8px 8px 0;
   cursor: pointer;
   position: absolute;
@@ -52,12 +57,12 @@ body {
   display: inline-flex;
   width: 25px;
   height: 25px;
-  fill: blue;
+  fill:var(--fon-background-color);
   transition: box-shadow 250ms linear, transform 250ms ease-in-out;
 }
 
 .icon:hover {
-  fill: tomato;
+  fill:var(--hover-icon-fill);
 }
 
 .gallery {
@@ -114,7 +119,7 @@ body {
 
 .load-more {
   margin: 20px auto;
-  background-color: rgb(48, 169, 225); 
+  background-color:var(--fon-background-color);
   border: none;
   border-radius: 8px;
   color: white;
@@ -125,11 +130,29 @@ body {
   font-size: 16px;
 }
 
+.go-home {
+  top: 93%;
+  right: 0px;
+  position: fixed;
+  background-color: transparent;
+  border: none;
+}
+
+.go-home .icon {
+  display: inline-flex;
+  fill:var(--main-icon-fill);
+  transition: box-shadow 250ms linear, transform 250ms ease-in-out;
+}
+
+.go-home .icon:hover {
+  fill: var(--hover-icon-fill);
+}
+
 .is-hidden {
   display: none;
 }
 
-.info-text{
-  color: rgb(41, 174, 11);
+.info-text {
+  color: var(--main-icon-fill);
   text-align: center;
 }

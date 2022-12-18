@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>hw-11</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
     <link rel="stylesheet" href="./style.css" />
   </head>
 
@@ -22,8 +23,14 @@
     <div class="gallery">
       <!-- Картки зображень -->
     </div>
+
+<div class="scroll"></div>
+
     <button type="button" class="load-more is-hidden">Load more</button>
      <p class="info-text is-hidden">We're sorry, but you've reached the end of search results.</p>
+    <button type="button" class="back-to-home go-home is-hidden"><svg class="icon">
+      <use href="./img/symbol-defs.svg#icon-circle-up"></use>
+    </svg></button>
   </div>
     <script type="module" src="index.js"></script>
   </body>
