@@ -3,13 +3,14 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import cardTemplates from './templates';
 import cardFetchAxios from './fetch';
+import easyScroll from 'easy-scroll';
 
 const refs = {
   formEl: document.querySelector('.search-form'),
   inputEl: document.querySelector('.search-form input'),
   btnLoadMoreEl: document.querySelector('.load-more'),
   galleryEl: document.querySelector('.gallery'),
-  infoTextEl: document.querySelector('.info-text')
+  infoTextEl: document.querySelector('.info-text'),
 };
 
 let pageNumber = 1;
@@ -18,8 +19,7 @@ let totalHits = 0;
 let inputSpace = '';
 
 refs.formEl.addEventListener('submit', onFormElSubmit);
-refs.btnLoadMoreEl.addEventListener('click', onBtnLoadMoreElClick);
-
+// refs.btnLoadMoreEl.addEventListener('click', onBtnLoadMoreElClick);
 refs.formEl.addEventListener('keydown', e => {
   inputSpace = e.code;
 });
@@ -42,8 +42,8 @@ async function onFormElSubmit(e) {
     refs.infoTextEl.classList.remove('is-hidden');
   } else {
     refs.btnLoadMoreEl.classList.remove('is-hidden');
-     refs.infoTextEl.classList.add('is-hidden');
-  };
+    refs.infoTextEl.classList.add('is-hidden');
+  }
 
   try {
     cardCreate(results.hits);
@@ -64,43 +64,114 @@ async function onFormElSubmit(e) {
   }
 }
 
-async function onBtnLoadMoreElClick(e) {
-  const results = await cardFetchAxios(inputValue, pageNumber);
-
-
-  try {
-    cardCreate(results.hits);
-    pageNumber += 1;
-    let remainder = results.totalHits - 40 * (pageNumber - 2)
-    if (remainder < 40) {
-    refs.btnLoadMoreEl.classList.add('is-hidden');
-    refs.infoTextEl.classList.remove('is-hidden');
-  } else {
-    refs.btnLoadMoreEl.classList.remove('is-hidden');
-     refs.infoTextEl.classList.add('is-hidden');
-  };
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-// window.addEventListener('scroll', onWindowScrol);
-
-// async function onWindowScrol() {
-//   const documentRect = document.documentElement.getBoundingClientRect();
-//   if ( documentRect.bottom < document.documentElement.clientHeight + 300){
-   
-//      refs.btnLoadMoreEl.classList.add('is-hidden');
-//     const results = await cardFetchAxios(inputValue, pageNumber);
+// async function onBtnLoadMoreElClick(e) {
+//   const results = await cardFetchAxios(inputValue, pageNumber);
+//   try {
 //     cardCreate(results.hits);
 //     pageNumber += 1;
-// if (results.totalHits < 40) {
+//     let remainder = results.totalHits - 40 * (pageNumber - 2)
+//     if (remainder < 40) {
+//     refs.btnLoadMoreEl.classList.add('is-hidden');
 //     refs.infoTextEl.classList.remove('is-hidden');
 //   } else {
+//     refs.btnLoadMoreEl.classList.remove('is-hidden');
 //      refs.infoTextEl.classList.add('is-hidden');
 //   };
-//   };
+//   } catch (error) {
+//     console.log(error);
+//   }
 // }
+
+
+
+
+
+
+// ===>
+// easyScroll({
+//     'scrollableDomEle': window,
+//     'direction': 'bottom',
+//     'duration': 2000,
+//     'easingPreset': 'easeInQuad',
+//     'scrollAmount': 1000
+// });
+
+// /** infinite scroll */
+
+// const optionsScroll = {
+//   rootMargin: '200px',
+// };
+
+// const onLoadMore = entries => {
+//   entries.forEach(async entry => {
+//     if (
+//       entry.isIntersecting &&
+//       pixabayAPIService.query !== '' &&
+//       pixabayAPIService.lengthArrayPhotos >= pixabayAPIService.perPage
+//     ) {
+//       pixabayAPIService.incrementPages();
+//       try {
+//         await pixabayAPIService.onFetchPhotos().then(onLoadPhotos);
+//         timerNotifyEndPhotos = 1;
+//       } catch (error) {
+//         reachedEndSearch();
+//       }
+//     } else if (
+//       pixabayAPIService.lengthArrayPhotos < pixabayAPIService.perPage &&
+//       timerNotifyEndPhotos === 1
+//     ) {
+//       reachedEndSearch();
+//       timerNotifyEndPhotos = 2;
+//       return;
+//     }
+//   });
+// };
+
+// const observer = new IntersectionObserver(onLoadMore, optionsScroll);
+// observer.observe(refs.pointOfInfiniteScroll);
+
+// ===>
+// window.addEventListener('scroll', onWindowScrol);
+
+ function onWindowScrol() {
+  
+    // нижняя граница документа
+    let windowRelativeBottom = document.documentElement.getBoundingClientRect().bottom;
+   
+    // если пользователь прокрутил достаточно далеко (< 100px до конца)
+    if (windowRelativeBottom < document.documentElement.clientHeight + 100) {
+   cardFetchAxios(inputValue, pageNumber)
+.then(results => {
+  cardCreate(results.hits);
+  refs.btnLoadMoreEl.classList.add('is-hidden');
+   pageNumber += 1;
+    let remainder = results.totalHits - 40 * (pageNumber - 2);
+    if (remainder < 40) {
+      refs.infoTextEl.classList.remove('is-hidden');
+    } else {
+      refs.infoTextEl.classList.add('is-hidden');
+    };
+}) 
+  .catch(error => console.log(error)) 
+  };
+}
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function cardCreate(imgs) {
   const markup = imgs.map(img => cardTemplates(img)).join('');
@@ -126,4 +197,3 @@ function loadingLazy() {
     // прокручування анімується плавно
   });
 }
-
