@@ -131,6 +131,7 @@ function onWindowScrole(entries) {
       // pixabayAPIService.lengthArrayPhotos >= pixabayAPIService.perPage
     ) {
       refs.btnLoadMoreEl.classList.add('is-hidden');
+      const results = await cardFetchAxios(inputValue, pageNumber);
       try {
         cardCreate(results.hits);
         pageNumber += 1;
