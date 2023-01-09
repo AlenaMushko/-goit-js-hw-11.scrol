@@ -22,18 +22,19 @@ let inputSpace = '';
 
 refs.formEl.addEventListener('submit', onFormElSubmit);
 
-refs.formEl.addEventListener('keydown', e => {
-  inputSpace = e.code;
-});
+// refs.formEl.addEventListener('keydown', e => {
+//   inputSpace = e.code;
+// });
 
 async function onFormElSubmit(e) {
   e.preventDefault();
-  inputValue = e.currentTarget.searchQuery.value;
+  inputValue = e.currentTarget.searchQuery.value.trim();
   // У разі пошуку за новим ключовим словом, значення page повернути до початкового
   pageNumber = 1;
   refs.galleryEl.innerHTML = '';
 
-  if (inputValue === '' || inputSpace === 'Space') {
+  if (inputValue === '') {
+     Notify.warning(`введіть текст`);
     return;
   }
 
@@ -121,9 +122,11 @@ const options = {
 };
 
 function onWindowScrole(entries) {
+  console.log(entries);
+  if (!inputValue) { return; }
   entries.forEach(async entry => {
     // анимируем, если элемент целиком попадает в отслеживаемую область
-    if (entry.isIntersecting && entry.intersectionRatio == 1) {
+    if (entry.isIntersecting && entry.intersectionRatio == 1 ) {
       refs.btnLoadMoreEl.classList.add('is-hidden');
       const results = await cardFetchAxios(inputValue, pageNumber);
       try {
@@ -144,9 +147,7 @@ function onWindowScrole(entries) {
 
 const observer = new IntersectionObserver(onWindowScrole, options);
 observer.observe(refs.scrollEl);
-// boxes.forEach((window) => {
-//   observer.observe(window);
-// });
+
 
 
 // ===>
