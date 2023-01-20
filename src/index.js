@@ -13,18 +13,14 @@ const refs = {
   infoTextEl: document.querySelector('.info-text'),
   goHomeBtnEl: document.querySelector('.go-home'),
   scrollEl: document.querySelector('.scroll'),
+  galleryEmpty: document.querySelector('.gallery-empty'),
 };
 
 let pageNumber = 1;
 let inputValue = '';
 let totalHits = 0;
-let inputSpace = '';
 
 refs.formEl.addEventListener('submit', onFormElSubmit);
-
-// refs.formEl.addEventListener('keydown', e => {
-//   inputSpace = e.code;
-// });
 
 async function onFormElSubmit(e) {
   e.preventDefault();
@@ -55,9 +51,11 @@ async function onFormElSubmit(e) {
       Notify.failure(
         'Sorry, there are no images matching your search query. Please try again.'
       );
+        refs.galleryEmpty.classList.remove('is-hidden');
       return;
     }
     if (totalHits >= 1) {
+      refs.galleryEmpty.classList.add('is-hidden');
       Notify.success(`Hooray! We found ${totalHits} images.`);
       loadingLazy();
     }
@@ -149,29 +147,3 @@ const observer = new IntersectionObserver(onWindowScrole, options);
 observer.observe(refs.scrollEl);
 
 
-
-// ===>
-// window.addEventListener('scroll', onWindowScrol);
-// function onWindowScrol(e) {
-//   if (window.scrollY + window.innerHeight + 100 >= document.documentElement.scrollHeight) {
-
-//     refs.btnLoadMoreEl.classList.add('is-hidden');
-//   //  let isLoading = true;
-//     cardFetchAxios(inputValue, pageNumber)
-//       .then(results => {
-//         cardCreate(results.hits);
-//         pageNumber += 1;
-//         let remainder = results.totalHits - 40 * (pageNumber - 2);
-//         if (remainder < 40) {
-//           refs.infoTextEl.classList.remove('is-hidden');
-//           // isLoading = false;
-//           // e.preventDefault()
-//         } else {
-//           refs.infoTextEl.classList.add('is-hidden');
-//         };
-
-//       })
-//       .catch(error => console.log(error))
-
-//   }
-// };

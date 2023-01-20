@@ -16,22 +16,37 @@
         autocomplete="off"
         placeholder="Search images..."
       />
-      <button type="submit"><svg class="icon"><use href="./img/symbol-defs.svg#icon-search"></use></svg></button>
+      <button type="submit">
+        <svg class="icon">
+          <use href="./img/symbol-defs.svg#icon-search"></use>
+        </svg>
+      </button>
     </form>
+  
+      <div class="load-gallery container">
+        <div class="gallery-empty ">
+          <p class="info-text">Sorry, there are no images. Please try again.</p>
+          <img
+            class="gallery-empty__img"
+            src="https://pixabay.com/get/gda0d03f7c05ae81f580efa49f96e1a98e4a783dfcf39c9c7b25298ad531ffe644596d365a7342287194f8abc64887fd15770999144d1b707a298740512578fb7_1280.jpg"
+            alt="empty page"
+          />
+        </div>
+        <div class="gallery">
+          <!-- Картки зображень -->
+        </div>
+        <div class="scroll"></div>
 
-    <div class="load-gallery">
-    <div class="gallery">
-      <!-- Картки зображень -->
-    </div>
-
-<div class="scroll"></div>
-
-    <button type="button" class="load-more is-hidden">Load more</button>
-     <p class="info-text is-hidden">We're sorry, but you've reached the end of search results.</p>
-    <button type="button" class="back-to-home go-home is-hidden"><svg class="icon">
-      <use href="./img/symbol-defs.svg#icon-circle-up"></use>
-    </svg></button>
-  </div>
-    <script type="module" src="index.js"></script>
+        <button type="button" class="load-more is-hidden">Load more</button>
+        <p class="info-text is-hidden">
+          We're sorry, but you've reached the end of search results.
+        </p>
+        <button type="button" class="back-to-home go-home is-hidden">
+          <svg class="icon">
+            <use href="./img/symbol-defs.svg#icon-circle-up"></use>
+          </svg>
+        </button>
+      </div>
+      <script type="module" src="index.js"></script>
   </body>
 </html>
