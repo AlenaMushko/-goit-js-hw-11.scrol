@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hw-11</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="/index.2cdaf7bc.css">
+  </head>
+
+  <body>
+    <form class="search-form" id="search-form">
+      <input type="text" name="searchQuery" autocomplete="off" placeholder="Search images...">
+      <button type="submit">
+        <svg class="icon">
+          <use href="/symbol-defs.b7ce9de3.svg#icon-search"></use>
+        </svg>
+      </button>
+    </form>
+  
+      <div class="load-gallery container">
+        <div class="gallery-empty ">
+          <p class="info-text">Sorry, there are no images. Please try again.</p>
+          <img class="gallery-empty__img" src="https://pixabay.com/get/gda0d03f7c05ae81f580efa49f96e1a98e4a783dfcf39c9c7b25298ad531ffe644596d365a7342287194f8abc64887fd15770999144d1b707a298740512578fb7_1280.jpg" alt="empty page">
+        </div>
+        <div class="gallery">
+          <!-- Картки зображень -->
+        </div>
+        <div class="scroll"></div>
+
+        <button type="button" class="load-more is-hidden">Load more</button>
+        <p class="info-text is-hidden">
+          We're sorry, but you've reached the end of search results.
+        </p>
+        <button type="button" class="back-to-home go-home is-hidden">
+          <svg class="icon">
+            <use href="/symbol-defs.b7ce9de3.svg#icon-circle-up"></use>
+          </svg>
+        </button>
+      </div>
+      <script src="/index.975ef6c8.js" defer=""></script>
+  </body>
+</html>
